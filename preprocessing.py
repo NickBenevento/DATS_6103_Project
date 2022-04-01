@@ -71,3 +71,8 @@ print(df.dtypes)
 print("\nReady to continue.")
 
 # %%
+# export clean dataset 
+df.to_csv('heart_2020_new.csv')  
+print("\nReady to continue.")
+
+# %%

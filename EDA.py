@@ -38,25 +38,9 @@ for var in list:
 #%%
 # Boxplots
 
-## HD and BMI
-sns.boxplot(x='HeartDisease',y='BMI', data=df)
-plt.show()
-
-## HD and mental health
-sns.boxplot(x='HeartDisease',y='MentalHealth', data=df)
-plt.show()
-
-## HD and physical health
-sns.boxplot(x='HeartDisease',y='PhysicalHealth', data=df)
-plt.show()
-
-## HD and age
-sns.boxplot(x='HeartDisease',y='AgeCategory', data=df)
-plt.show()
-
-## HD and sleep
-sns.boxplot(x='HeartDisease',y='SleepTime', data=df)
-plt.show()
+for var in list:
+    sns.boxplot(x='HeartDisease',y=var, data=df).set(title = var)
+    plt.show()
 
 #%%
 # Barcharts 

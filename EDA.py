@@ -17,18 +17,23 @@ sns.set(style="whitegrid")
 
 #%%
 # Histograms
+
 ## BMI
-### all
-sns.distplot(x=df['BMI'], kde = False)
-plt.show()
 
-### HD = Y
-sns.distplot(x=df.loc[ df['HeartDisease'] == "Yes", 'BMI'], kde = False)
-plt.show()
+list = ('BMI', 'MentalHealth', 'PhysicalHealth', 'AgeCategory', 'SleepTime')
 
-### HD = N
-sns.distplot(x=df.loc[ df['HeartDisease'] == "No", 'BMI'], kde = False)
-plt.show()
+for var in list:
+    ### all
+    sns.distplot(x=df[var], kde = False).set(title = var + " -All")
+    plt.show()
+
+    ### HD = Y
+    sns.distplot(x=df.loc[ df['HeartDisease'] == "Yes", var], kde = False).set(title = var + " -HD")
+    plt.show()
+
+    ### HD = N
+    sns.distplot(x=df.loc[ df['HeartDisease'] == "No", var], kde = False).set(title = var + " -No HD")
+    plt.show()
 
 #%%
 # Boxplots

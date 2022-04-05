@@ -1,1 +1,2 @@
-# DATS_6103_Project
+# Heart Disease Prediction Model Card (DATS 6103 Project)
+

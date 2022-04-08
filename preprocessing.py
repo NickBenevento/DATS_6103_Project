@@ -47,7 +47,7 @@ def cleanDfAge(row):
   if thisage == "60-64": return np.random.uniform(60, 65)
   if thisage == "65-69": return np.random.uniform(65, 70)
   if thisage == "70-74": return np.random.uniform(70, 75)
-  if thisage == "75-79": return np.random.uniform(75, 80)
+  if thisage == "75-79": return np.random.uniform(75, 79)
   if thisage == "80 or older": return min(79 + 3*np.random.chisquare(2), 99)
   return np.nan
 

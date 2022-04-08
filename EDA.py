@@ -15,6 +15,11 @@ dm.dfChk(df)
 #%%
 sns.set(style="whitegrid")
 
+# stat test prep
+import scipy.stats as stats
+df_HD = df[ df['HeartDisease'] == 'Yes']
+df_NO = df[ df['HeartDisease'] == 'No']
+
 #%%
 # Histograms
 

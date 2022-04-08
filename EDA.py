@@ -15,24 +15,33 @@ dm.dfChk(df)
 #%%
 sns.set(style="whitegrid")
 
+# stat test prep
+import scipy.stats as stats
+df_HD = df[ df['HeartDisease'] == 'Yes']
+df_NO = df[ df['HeartDisease'] == 'No']
+
 #%%
-# Histograms
+# KDE Plots 
 
 ## BMI
 
-list = ('BMI', 'MentalHealth', 'PhysicalHealth', 'AgeCategory', 'SleepTime')
+list = ('BMI', 'MentalHealth', 'PhysicalHealth', 'AgeCont', 'SleepTime')
 
 for var in list:
     ### all
-    sns.distplot(x=df[var], kde = False).set(title = var + " -All")
+    sns.kdeplot(data=df, x=var).set(title = var + " All")
+    plt.show()
+
+    ### HD hue
+    sns.kdeplot(data=df, x=var, hue='HeartDisease', multiple="layer").set(title = var + " HD vs. No HD")
     plt.show()
 
     ### HD = Y
-    sns.distplot(x=df.loc[ df['HeartDisease'] == "Yes", var], kde = False).set(title = var + " -HD")
+    sns.kdeplot(data = df, x=df.loc[ df['HeartDisease'] == "Yes", var]).set(title = var + " -HD")
     plt.show()
 
     ### HD = N
-    sns.distplot(x=df.loc[ df['HeartDisease'] == "No", var], kde = False).set(title = var + " -No HD")
+    sns.kdeplot(data = df, x=df.loc[ df['HeartDisease'] == "No", var]).set(title = var + " -No HD")
     plt.show()
 
 #%%
@@ -42,6 +51,13 @@ for var in list:
     sns.boxplot(x='HeartDisease',y=var, data=df).set(title = var)
     plt.show()
 
+#%%
+# t tests for cont. variables
+
+for var in list:
+    print(var, "t test p val: \n", stats.ttest_ind(df_HD[var], df_NO[var])[1])
+
+# evidence for statistically significantly different means for all variables.
 #%%
 # Barcharts 
 
@@ -119,4 +135,13 @@ for var in list2:
     plt.show()
 
 
+# %%
+# Chi-squared tests for categorical variables 
+list3 = list1 + list2
+
+for var in list3:
+    ct = pd.crosstab(df[var], df['HeartDisease'])
+    print(var, "chi sq p val: \n", stats.chi2_contingency(ct)[1])
+
+# evidence for statistically significantly different frequencies for all variables.
 # %%

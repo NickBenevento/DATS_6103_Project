@@ -8,7 +8,7 @@ import seaborn as sns
 
 #%%
 # read in datafile and check variables 
-df = pd.read_csv("heart_2020_cleaned_default.csv")
+df = pd.read_csv("heart_2020_cleaned.csv")
 dm.dfChk(df)
 
 # %%

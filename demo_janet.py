@@ -76,6 +76,7 @@ plt.xlabel('BMI indicator')
 plt.figure(figsize=(10,4))
 sns.countplot(data=new_df, x='Smoking', hue='HeartDisease')
 #We notice that smoking increase your chance in getting Heart Diseases by about 50%
+# claculation
 #%%
 #Alchol and Heart Disease
 plt.figure(figsize=(10,4))

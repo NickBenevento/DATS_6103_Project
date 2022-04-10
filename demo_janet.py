@@ -289,3 +289,4 @@ ct13 = pd.crosstab(new_df['SkinCancer'], new_df['HeartDisease'])
 print("chi sq p val: \n", stats.chi2_contingency(ct13)[1])
 # stat sig at a = 0.01, confirm that there is a difference in frequencies
 # %%
+

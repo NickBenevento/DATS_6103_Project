@@ -8,7 +8,7 @@ import seaborn as sns
 
 #%%
 # read in datafile and check variables 
-df = pd.read_csv("heart_2020_cleaned_default.csv")
+df = pd.read_csv("heart_2020_cleaned.csv")
 dm.dfChk(df)
 # %%
 df.describe()
@@ -158,3 +158,5 @@ sns.countplot(data=new_df, x='KidneyDisease', hue='HeartDisease')
 #SkinCancer and heart disease
 plt.figure(figsize=(10,4))
 sns.countplot(data=new_df, x='SkinCancer', hue='HeartDisease')
+
+#%%

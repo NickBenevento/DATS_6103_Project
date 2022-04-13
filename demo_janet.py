@@ -95,7 +95,7 @@ new_df.head()
 
 # %%
 # export dataset for us to use later
-df.to_csv('heart_2020_balanced.csv')  
+new_df.to_csv('heart_2020_balanced.csv')  
 print("\nReady to continue.")
 
 

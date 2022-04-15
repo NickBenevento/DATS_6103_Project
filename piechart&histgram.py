@@ -152,3 +152,56 @@ sns.countplot(data=new_df, x='GenHealth', hue='HeartDisease')
 plt.figure(figsize=(16,6))
 sns.histplot(data=new_df, x='SleepTime', hue='HeartDisease', binwidth=1, binrange= (0,15))
 #We notice that the best sleeping routine would be to get 7.5 hourse per night to reduce the chance of getting heart disease
+
+
+#%%
+one = new_df[new_df['Diabetic'] == 'No']
+one.info()
+# %%
+two = new_df[new_df['Diabetic'] == 'Yes']
+
+#%%
+one.groupby('HeartDisease').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold'])
+plt.title('% of HeartDisease in No Diabetic', fontsize = 12)
+#%%
+two.groupby('HeartDisease').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold'])
+plt.title('% of HeartDisease in Yes Diabetic', fontsize = 12)
+#%%
+fig,  (ax1,ax2) = plt.subplots(1,2,figsize=(10,10))
+
+axes[1].plot(one.groupby('HeartDisease'),kind='pie', figsize=(5,5), fontsize=10,  labels = ['No', 'Yes'], autopct='%1.0f%%')
+axes[1].set_title('% of HeartDisease in No Diabetic', fontsize = 12)
+
+axes[2].plot(two.groupby('HeartDisease'), kind='pie', figsize=(5,5), labels = ['No', 'Yes'], fontsize=10, autopct='%1.0f%%')
+axes[2].set_title('% of HeartDisease in Yes Diabetic', fontsize = 12)
+
+plt.show()
+
+#%%
+fig, (ax1,ax2) = plt.subplots(1,2,figsize=(10,10)) #ax1,ax2 refer to your two pies
+
+# 1,2 denotes 1 row, 2 columns - if you want to stack vertically, it would be 2,1
+
+labels = male_and_female_1960['level_1']
+values = male_and_female_1960['value']
+ax1.pie(values,labels = labels,colors = colors,autopct = '%1.1f%%') #plot first pie
+ax1.title('Gender Composition in 1960')
+
+
+labels = male_and_female_2016['level_1']
+values = male_and_female_2016['value']
+ax2.pie(values,labels = labels,colors = colors,autopct = '%1.1f%%') #plot second pie
+ax2.title('Gender Composition in 2016')
+
+
+#%%
+new_df.groupby('pclass').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold', 'skyblue'])
+
+#%%
+dia = pd.crosstab(new_df.Diabetic, new_df.HeartDisease)
+import matplotlib.pyplot as plt
+dia.plot.bar(stacked=True)
+plt.legend(title='HeartDisease')
+plt.show()
+
+# %%

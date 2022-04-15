@@ -75,7 +75,8 @@ def Draw_pie_chart(name_feature):
     
 #%%
 # pie chart
-Draw_pie_chart("Smoking")
+Draw_pie_chart("PhysicalActivity")
+
 
 #%%
 features = new_df.columns
@@ -203,5 +204,9 @@ import matplotlib.pyplot as plt
 dia.plot.bar(stacked=True)
 plt.legend(title='HeartDisease')
 plt.show()
+
+# %%
+df3 = new_df[new_df['PhysicalActivity'] == 'No']
+df3.groupby('HeartDisease').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold'])
 
 # %%

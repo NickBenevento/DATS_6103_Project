@@ -4,6 +4,7 @@ import pandas as pd
 import dm6103 as dm
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
 
 # import and check out data
 df = pd.read_csv("heart_2020_balanced.csv")
@@ -47,3 +48,40 @@ model_predictions['Model1'] = HDlogit.predict_proba(X_test)[:,1]
 model_predictions.head()
 
 # %%
+# Scoring 
+from sklearn.metrics import classification_report
+y_true, y_pred = y_test, HDlogit.predict(X_test)
+print(classification_report(y_true, y_pred))
+
+#%%
+# Receiver Operator Characteristics (ROC)
+# Area Under the Curve (AUC)
+from sklearn.metrics import roc_auc_score, roc_curve
+
+# generate a no skill prediction (majority class)
+ns_probs = [0 for _ in range(len(y_test))]
+# predict probabilities
+lr_probs = HDlogit.predict_proba(X_test)
+# keep probabilities for the positive outcome only
+lr_probs = lr_probs[:, 1]
+# calculate scores
+ns_auc = roc_auc_score(y_test, ns_probs)
+lr_auc = roc_auc_score(y_test, lr_probs)
+# summarize scores
+print('No Skill: ROC AUC=%.3f' % (ns_auc))
+print('Logistic: ROC AUC=%.3f' % (lr_auc))
+# calculate roc curves
+ns_fpr, ns_tpr, _ = roc_curve(y_test, ns_probs)
+lr_fpr, lr_tpr, _ = roc_curve(y_test, lr_probs)
+# plot the roc curve for the model
+plt.plot(ns_fpr, ns_tpr, linestyle='--', label='No Skill')
+plt.plot(lr_fpr, lr_tpr, marker='.', label='Logistic')
+# axis labels
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+# show the legend
+plt.legend()
+# show the plot
+plt.show()
+
+#0.8 is a good model 

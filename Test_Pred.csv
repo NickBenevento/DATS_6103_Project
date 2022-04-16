@@ -1,0 +1,6 @@
+,Smoking,AlcoholDrinking,Stroke,PhysicalHealth,MentalHealth,DiffWalking,Sex,Race,Diabetic,PhysicalActivity,GenHealth,SleepTime,Asthma,KidneyDisease,SkinCancer,AgeCont,BMI,Prediction
+0,No,No,No,0,0,No,Female,White,No,Yes,Excellent,8,No,No,No,40,20,0.03849813128735911
+1,No,No,No,0,0,No,Male,White,No,Yes,Excellent,8,No,No,No,40,20,0.07948823844686587
+2,Yes,No,No,0,0,No,Female,White,No,Yes,Good,8,No,No,No,45,23,0.18744359750252726
+3,Yes,Yes,No,0,0,No,Female,White,No,Yes,Poor,8,No,No,No,45,23,0.31680442863774005
+4,Yes,No,Yes,0,0,No,Male,White,No,Yes,Fair,5,No,No,No,45,23,0.7518514903671292

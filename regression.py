@@ -145,4 +145,6 @@ data = [['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Excellen
 testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
 testData['Prediction'] = heart_disease_bal_fit.predict(testData)
 print(testData.head())
+testData.to_csv('Test_Pred.csv')
+
 # %%

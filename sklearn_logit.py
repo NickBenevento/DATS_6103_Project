@@ -102,4 +102,5 @@ testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke',
 dataTable = testData.copy()
 dataTable['Prediction'] = HDlogit.predict_proba(testData)[:,1]
 print(dataTable)
+
 # %%

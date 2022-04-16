@@ -41,3 +41,12 @@ print('Accuracy: ', round(accuracy, 4))
 print('F1: ', round(F1, 4))
 # F1: 75.34%, accuracy: 74.74%: decent
 # %%
+# Use some test data:
+data = [[0, 0, 0, 0, 0, 0, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20],
+        [1, 1, 1, 0, 0, 1, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20]] 
+test_data = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
+data_table = test_data.copy()
+data_table['Prediction'] = svm.predict(test_data)
+# Predicts the first person as 0, second as 1 (which seems to make sense, 
+# as person 2 is much more unhealthy and has underlying health conditions)
+print(data_table)

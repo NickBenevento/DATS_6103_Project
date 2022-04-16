@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 
+plt.style.use('seaborn')
+
 # import and check out data
 df = pd.read_csv("heart_2020_balanced.csv")
 dm.dfChk(df)
@@ -25,6 +27,13 @@ dfY = df[['HeartDiseaseBin']]
 
 for var in ('Smoking', 'AlcoholDrinking', 'Stroke',  'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth',  'Asthma', 'KidneyDisease', 'SkinCancer'):
     dfX[var] = dfX[var].astype('category').cat.codes
+
+# cat code mapping:
+# Sex: F = 0, M = 1
+# Race: White = 5, Hisp = 3, Black - 2, Other = 4, Asian = 1, American Indian/Alaskan Native = 0
+# Diabetic: No = 0, Yes = 2, No borderline = 1, Yes pregnancy = 3
+# GenHealth: 2 = good, 4 = very good, fair = 1, Excellent = 0, Poor = 3
+
 
 # split into test and train 
 X_train, X_test, y_train, y_test = train_test_split(dfX, dfY, test_size = 0.25, random_state=333)
@@ -85,3 +94,12 @@ plt.legend()
 plt.show()
 
 #0.8 is a good model 
+
+#%%
+# use some dummy data to see how predictions change 
+data = [[0, 0, 0, 0, 0, 0, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20]] 
+testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
+dataTable = testData.copy()
+dataTable['Prediction'] = HDlogit.predict_proba(testData)[:,1]
+print(dataTable)
+# %%

@@ -137,3 +137,11 @@ for cut_off in cut_offs:
     print('precision: ', round(precision_bal, 3))
     print('recall: ', round(recall_bal, 3))
     print()
+
+#%%
+
+# Use some test data:
+data = [['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20]] 
+testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
+testData['Prediction'] = heart_disease_bal_fit.predict(testData)
+print(testData.head())

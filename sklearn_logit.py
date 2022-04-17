@@ -25,14 +25,29 @@ dfY = df[['HeartDiseaseBin']]
 
 # change X variables to either numeric or factor
 
-for var in ('Smoking', 'AlcoholDrinking', 'Stroke',  'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth',  'Asthma', 'KidneyDisease', 'SkinCancer'):
+# encoding for binaries 
+for var in ('Smoking', 'AlcoholDrinking', 'Stroke',  'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer'):
     dfX[var] = dfX[var].astype('category').cat.codes
 
-# cat code mapping:
-# Sex: F = 0, M = 1
-# Race: White = 5, Hisp = 3, Black - 2, Other = 4, Asian = 1, American Indian/Alaskan Native = 0
-# Diabetic: No = 0, Yes = 2, No borderline = 1, Yes pregnancy = 3
-# GenHealth: 2 = good, 4 = very good, fair = 1, Excellent = 0, Poor = 3
+# encoding for categorical
+
+from pandas.api.types import CategoricalDtype
+
+# GH
+GH_dtype = CategoricalDtype(
+    categories=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'], ordered=True)
+
+dfX['GenHealth'] = dfX['GenHealth'].astype(GH_dtype).cat.codes
+
+# Diabetic 
+DB_dtype = CategoricalDtype(
+    categories=['No', 'No, boderline diabetes', 'Yes (during pregnancy)', 'Yes'], ordered=True)
+
+dfX['Diabetic'] = dfX['Diabetic'].astype(DB_dtype).cat.codes
+
+# Race
+dfX = pd.get_dummies(dfX, columns=['Race'])
+
 
 
 # split into test and train 
@@ -97,10 +112,36 @@ plt.show()
 
 #%%
 # use some dummy data to see how predictions change 
-data = [[0, 0, 0, 0, 0, 0, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20]] 
+data = [['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['Yes', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Good', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'Yes', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Poor', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'No', 'Yes', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Fair', 5, 'No', 'No', 'No', 45, 23], ['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'Yes', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'White', 'Yes', 'No', 'Good', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Asian', 'Yes', 'No', 'Good', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Asian', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Hispanic', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Black', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Other', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'American Indian/Alaskan Native ', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20] ] 
 testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
+
+# change X variables to either numeric or factor
+
+# encoding for binaries 
+for var in ('Smoking', 'AlcoholDrinking', 'Stroke',  'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer'):
+    testData[var] = testData[var].astype('category').cat.codes
+
+# encoding for categorical
+
+# GH
+GH_dtype = CategoricalDtype(
+    categories=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'], ordered=True)
+
+testData['GenHealth'] = testData['GenHealth'].astype(GH_dtype).cat.codes
+
+# Diabetic 
+DB_dtype = CategoricalDtype(
+    categories=['No', 'No, boderline diabetes', 'Yes (during pregnancy)', 'Yes'], ordered=True)
+
+testData['Diabetic'] = testData['Diabetic'].astype(DB_dtype).cat.codes
+
+# Race
+testData = pd.get_dummies(testData, columns=['Race'])
+
+# predictions
+
 dataTable = testData.copy()
 dataTable['Prediction'] = HDlogit.predict_proba(testData)[:,1]
 print(dataTable)
-
+dataTable.to_csv('Test_Pred_2.csv')
 # %%

@@ -4,3 +4,7 @@
 2,Yes,No,No,0,0,No,Female,White,No,Yes,Good,8,No,No,No,45,23,0.18744359750252726
 3,Yes,Yes,No,0,0,No,Female,White,No,Yes,Poor,8,No,No,No,45,23,0.31680442863774005
 4,Yes,No,Yes,0,0,No,Male,White,No,Yes,Fair,5,No,No,No,45,23,0.7518514903671292
+5,No,No,No,0,0,No,Female,White,Yes,Yes,Excellent,8,No,No,No,40,20,0.06274199926768709
+6,No,No,No,0,0,Yes,Male,White,Yes,No,Good,8,No,No,No,40,20,0.35566067933143125
+7,No,No,No,0,0,Yes,Male,Asian,Yes,No,Good,8,No,No,No,40,20,0.264987765359285
+8,No,No,No,0,0,Yes,Male,Asian,Yes,No,Good,8,No,Yes,Yes,40,20,0.43634361394137733

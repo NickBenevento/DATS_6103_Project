@@ -141,10 +141,11 @@ for cut_off in cut_offs:
 #%%
 
 # Use some test data:
-data = [['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['Yes', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Good', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'Yes', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Poor', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'No', 'Yes', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Fair', 5, 'No', 'No', 'No', 45, 23]] 
+data = [['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['Yes', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Good', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'Yes', 'No', 0, 0, 'No', 'Female', 'White', 'No', 'Yes', 'Poor', 8, 'No', 'No', 'No', 45, 23], ['Yes', 'No', 'Yes', 0, 0, 'No', 'Male', 'White', 'No', 'Yes', 'Fair', 5, 'No', 'No', 'No', 45, 23], ['No', 'No', 'No', 0, 0, 'No', 'Female', 'White', 'Yes', 'Yes', 'Excellent', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'White', 'Yes', 'No', 'Good', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Asian', 'Yes', 'No', 'Good', 8, 'No', 'No', 'No', 40, 20], ['No', 'No', 'No', 0, 0, 'Yes', 'Male', 'Asian', 'Yes', 'No', 'Good', 8, 'No', 'Yes', 'Yes', 40, 20]] 
+
 testData = pd.DataFrame(data, columns = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI'])
 testData['Prediction'] = heart_disease_bal_fit.predict(testData)
-print(testData.head())
+print(testData)
 testData.to_csv('Test_Pred.csv')
 
 # %%

@@ -146,6 +146,7 @@ sns.countplot(data=new_df, x='Diabetic', hue='HeartDisease')
 #GenHealth and heart disease
 plt.figure(figsize=(16,4))
 sns.countplot(data=new_df, x='GenHealth', hue='HeartDisease')
+# how to change the order?
 #the more better GenHealth the less chance to get heart diseases
 
 #%%
@@ -168,31 +169,15 @@ plt.title('% of HeartDisease in No Diabetic', fontsize = 12)
 two.groupby('HeartDisease').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold'])
 plt.title('% of HeartDisease in Yes Diabetic', fontsize = 12)
 #%%
-fig,  (ax1,ax2) = plt.subplots(1,2,figsize=(10,10))
+#fig,  (ax1,ax2) = plt.subplots(1,2,figsize=(10,10))
 
-axes[1].plot(one.groupby('HeartDisease'),kind='pie', figsize=(5,5), fontsize=10,  labels = ['No', 'Yes'], autopct='%1.0f%%')
-axes[1].set_title('% of HeartDisease in No Diabetic', fontsize = 12)
+#axes[1].plot(one.groupby('HeartDisease'),kind='pie', figsize=(5,5), fontsize=10,  labels = ['No', 'Yes'], autopct='%1.0f%%')
+#axes[1].set_title('% of HeartDisease in No Diabetic', fontsize = 12)
 
-axes[2].plot(two.groupby('HeartDisease'), kind='pie', figsize=(5,5), labels = ['No', 'Yes'], fontsize=10, autopct='%1.0f%%')
-axes[2].set_title('% of HeartDisease in Yes Diabetic', fontsize = 12)
+#axes[2].plot(two.groupby('HeartDisease'), kind='pie', figsize=(5,5), labels = ['No', 'Yes'], fontsize=10, autopct='%1.0f%%')
+#axes[2].set_title('% of HeartDisease in Yes Diabetic', fontsize = 12)
 
-plt.show()
-
-#%%
-fig, (ax1,ax2) = plt.subplots(1,2,figsize=(10,10)) #ax1,ax2 refer to your two pies
-
-# 1,2 denotes 1 row, 2 columns - if you want to stack vertically, it would be 2,1
-
-labels = male_and_female_1960['level_1']
-values = male_and_female_1960['value']
-ax1.pie(values,labels = labels,colors = colors,autopct = '%1.1f%%') #plot first pie
-ax1.title('Gender Composition in 1960')
-
-
-labels = male_and_female_2016['level_1']
-values = male_and_female_2016['value']
-ax2.pie(values,labels = labels,colors = colors,autopct = '%1.1f%%') #plot second pie
-ax2.title('Gender Composition in 2016')
+#plt.show()
 
 
 #%%
@@ -208,5 +193,86 @@ plt.show()
 # %%
 df3 = new_df[new_df['PhysicalActivity'] == 'No']
 df3.groupby('HeartDisease').size().plot(kind='pie', autopct='%1.0f%%', textprops={'fontsize': 20},colors=['tomato', 'gold'])
+
+
+
+
+##################################################################################
+#%%
+# read in datafile and check variables 
+df = pd.read_csv("heart_2020_cleaned.csv")
+df.head()
+#%%
+# Data understang
+for feature in df.columns:
+    print(feature)
+    print(df[feature].unique(),"\n")
+
+# %%
+# Data understang
+no = df['HeartDisease'].value_counts()[0]
+yes = df['HeartDisease'].value_counts()[1] # the reason have [1][0] label is associate with '{}%'.format
+print('The number of People have heart disease is {}%'.format(((yes/len(df))*100).round(2)))
+#unbalance data
+
+# %%
+#data vistualizatio
+features = df.columns
+features
+
+# %%
+# binary feature
+binary_feature=[]
+for feature in df.columns:
+    if np.isin(df[feature].unique(),["Yes","No"]).all() or np.isin(df[feature].unique(),["Male","Female"]).all():
+        binary_feature.append(feature)
+        
+#binary_feature
+# %%
+continuos_feature = ['BMI']
+#can not use df['BMI], casue is different dtype
+# %%
+discrete_feature = features[~features.isin(binary_feature+continuos_feature)]
+#np.isin function
+discrete_feature
+# %%
+# discrete_feature vistualization
+position_index = [(0,0),(0,1),(1,0),(1,1),(2,0),(2,1)]
+fig,axes = plt.subplots(3,2,figsize=(20,15))
+for position, feature in zip(position_index, discrete_feature):
+    if len(df[feature].unique()) > 15:
+        sns.histplot(ax=axes[position],bins = 15, data=df[feature].sort_values())
+    else:
+        if feature in ["AgeCategory", "Race"]:
+            i, r = pd.factorize(df[feature])
+            a = np.argsort(np.bincount(i)[i], kind='mergesort')[::-1]
+            sns.histplot(ax=axes[position],y=df.iloc[a][feature])
+        elif feature == "GenHealth":
+            sns.histplot(ax=axes[position],data=pd.Categorical(df.GenHealth, categories=["Poor","Fair","Good","Very good","Excellent"], ordered=True))
+            axes[position].set(xlabel=feature)
+        else:
+            sns.histplot(ax=axes[position],data=df[feature].sort_values())
+    axes[position].set_title(feature)
+        
+fig.tight_layout()
+plt.show()
+
+#%%
+# continous data vistualization
+combine_features = features[~features.isin(continuos_feature)]
+#%%
+nrows, ncols = 9, 2
+
+fig = plt.figure(figsize=(15,60))    
+for position, name_feature in zip(range(1,18),combine_features):
+    axes = fig.add_subplot(nrows, ncols, position)
+    sns.kdeplot(ax=axes,data=df, x=continuos_feature[0], hue=name_feature,fill=True,bw_adjust=.8)
+    
+fig.tight_layout()
+plt.show()
+
+#%%
+#Data selection 
+df.corr()
 
 # %%

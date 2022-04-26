@@ -41,7 +41,7 @@ dfX['GenHealth'] = dfX['GenHealth'].astype(GH_dtype).cat.codes
 
 # Diabetic 
 DB_dtype = CategoricalDtype(
-    categories=['No', 'No, boderline diabetes', 'Yes (during pregnancy)', 'Yes'], ordered=True)
+    categories=['No', 'No, borderline diabetes', 'Yes (during pregnancy)', 'Yes'], ordered=True)
 
 dfX['Diabetic'] = dfX['Diabetic'].astype(DB_dtype).cat.codes
 
@@ -65,6 +65,13 @@ HDlogit.fit(X_train, y_train)
 print('Logit model accuracy (with the test set):', HDlogit.score(X_test, y_test))
 print('Logit model accuracy (with the train set):', HDlogit.score(X_train, y_train))
 
+# see coefficients 
+weight = HDlogit.coef_  
+factors = HDlogit.feature_names_in_
+weight = weight.reshape(22,1)
+factors = factors.reshape(22,1)
+regression_results = pd.DataFrame(factors, columns = ['vars'])
+regression_results['coefs'] = weight
 
 # %%
 # Store predictions

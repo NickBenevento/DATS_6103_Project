@@ -259,6 +259,11 @@ plt.show()
 
 #%%
 # continous data vistualization
+#def draw_density_plot(name_feature):
+#    fig,axes = plt.subplots(figsize=(15,8))
+ #   sns.kdeplot(ax=axes,data=df, x=continuos_feature[0], hue=name_feature,fill=True,bw_adjust=.8)
+ #   plt.show()
+    
 combine_features = features[~features.isin(continuos_feature)]
 #%%
 nrows, ncols = 9, 2
@@ -329,6 +334,23 @@ plt.show()
 cov_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)
 #vistual
 #%%
+# define plot_bar_chart
+def plot_bar_chart(df1, df2, maintitle="Main title", title1='Before Normialization',title2='After Normialization'):
+    fig,axes = plt.subplots(1,2,figsize=(15,8))
+
+    axes[0].barh(df1.index, df1.values)
+    axes[0].set_title(title1)
+    axes[0].invert_yaxis()
+    
+    axes[1].barh(df2.index,df2.values)
+    axes[1].set_title(title2)
+    axes[1].invert_yaxis()
+    
+    fig.suptitle(maintitle, fontsize=15)
+    
+    fig.tight_layout()
+    plt.show()
+#%%
 #feture inprotance in encode feature
 unscaling_cor = corr_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
 unscaling_cov = cov_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
@@ -338,5 +360,41 @@ plot_bar_chart(unscaling_cor,unscaling_cov,maintitle = "Correlation vs Covarianc
 # standarlized dataset
 #%%
 # feature importance in un-encode standarlized dataset 
+from sklearn.preprocessing import StandardScaler
+stand_scale = StandardScaler()
+df_num1 = df[num_features].copy()
+df_num1_scaler = stand_scale.fit_transform(df_num1)
+df_num1_scaler = pd.DataFrame(df_num1_scaler, columns = num_features)
+df_num1_scaler
 # feature importance in encode standarlized dataset
 # compare un-encode standarlized dataset with not encode standarlized dataset
+# %%
+df_numeric_scaler = pd.merge(df_cat_encoded, df_num1_scaler,left_index=True, right_index=True)
+df_numeric_scaler.head()
+# %%
+scaling_cor = df_numeric_scaler.corr()["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
+
+scaling_cov = df_numeric_scaler.cov()["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
+#%%
+plot_bar_chart(unscaling_cor,scaling_cor, maintitle="Correlation")
+plot_bar_chart(unscaling_cov,scaling_cov,maintitle="Covariance")
+# %%
+from sklearn.preprocessing import OneHotEncoder
+
+# age category
+age_cat = df[["AgeCategory"]].sort_values(by="AgeCategory")
+
+onehot_encoder = OneHotEncoder(sparse=False)
+age_cat_encoder = onehot_encoder.fit_transform(age_cat)
+age_cat_encoder = pd.DataFrame(age_cat_encoder, columns=age_cat.AgeCategory.unique())
+age_cat_encoder = pd.merge(age_cat_encoder, df_cat_encoded["HeartDisease"],left_index=True, right_index=True)
+
+#%%
+#age correlation covariance
+age_cor = age_cat_encoder.corr()["HeartDisease"].sort_values(ascending=False)[:8]
+age_cov = age_cat_encoder.cov()["HeartDisease"].sort_values(ascending=False)[:8]
+
+#%%
+#plot age cor cov
+plot_bar_chart(age_cor,age_cov, maintitle="Age Category Correlation vs Covariance", title1="Correlation",title2="Covariance")
+# %%

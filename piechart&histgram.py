@@ -276,3 +276,67 @@ plt.show()
 df.corr()
 
 # %%
+# one hot encoder features
+cat_features = []
+num_features = []
+for column, i in zip(df.columns, df.dtypes):
+    if i == object:
+        cat_features.append(column)
+    else:
+        num_features.append(column)
+
+#%%
+# show encoded feature
+df_cat = df[cat_features].copy()
+df_cat.head()
+#%%
+# transfer cat to num
+# ordinalencoder
+from sklearn.preprocessing import OrdinalEncoder
+
+ordinal_encoder = OrdinalEncoder()
+df_cat_encoded = ordinal_encoder.fit_transform(df_cat)
+df_cat_encoded = pd.DataFrame(df_cat_encoded, columns = cat_features)
+
+df_cat_encoded.info()
+#%%
+# check the unique value after transformation
+for feature in df_cat_encoded.columns:
+    print(feature)
+    print(df_cat_encoded[feature].unique(),"\n")
+    
+#%%
+#new numeric datafram
+df_num = pd.merge(df_cat_encoded, df[num_features],left_index=True, right_index=True)
+df_num.head()
+#%%
+# corr
+sns.heatmap(df_num.corr())
+plt.show()
+#%%
+# corr ranking
+corr_m = df_num.corr()
+corr_m['HeartDisease'].drop('HeartDisease').sort_values(ascending=False)
+#vistual?
+#%%
+#covariance
+cov_m = df_num.cov()
+sns.heatmap(cov_m)
+plt.show()
+
+#%%
+# cov ranking
+cov_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)
+#vistual
+#%%
+#feture inprotance in encode feature
+unscaling_cor = corr_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
+unscaling_cov = cov_m["HeartDisease"].drop("HeartDisease").sort_values(ascending=False)[:6]
+
+plot_bar_chart(unscaling_cor,unscaling_cov,maintitle = "Correlation vs Covariance", title1="Correlation",title2="Covariance")
+#%%
+# standarlized dataset
+#%%
+# feature importance in un-encode standarlized dataset 
+# feature importance in encode standarlized dataset
+# compare un-encode standarlized dataset with not encode standarlized dataset

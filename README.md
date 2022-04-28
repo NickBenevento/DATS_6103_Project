@@ -7,7 +7,7 @@
 * **Project date**: April, 2022
 * **Project topic**: Determine if the key risk factors listed by the CDC were good predictors for heart disease and also explore if there are other, less prevalent factors that were also useful predictors. 
 
-### Training Data
+### Data Information
 
 * Data dictionary: 
   - HeartDisease: Respondents that have ever reported having coronary heart disease (CHD) or myocardial infarction (MI).
@@ -29,16 +29,9 @@
   - KidneyDisease: Not including kidney stones, bladder infection or incontinence, were you ever told you had kidney disease?
   - SkinCancer: (Ever told) (you had) skin cancer?
 
-* **Source of training data**: GWU Blackboard, email `jphall@gwu.edu` for more information
-* **How training data was divided into training and validation data**: 50% training, 25% validation, 25% test
-* **Number of rows in training and validation data**:
-  * Training rows: 15,000
-  * Validation rows: 7,500
-
-### Test Data
 * **Source of test data**: https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-diseasen
 * **Number of rows in test data**: 57,000
-* **State any differences in columns between training and test data**: None
+
 
 ### EDA
 

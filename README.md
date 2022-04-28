@@ -10,24 +10,24 @@
 ### Training Data
 
 * Data dictionary: 
-HeartDisease: Respondents that have ever reported having coronary heart disease (CHD) or myocardial infarction (MI).
-BMI: Body Mass Index (BMI).
-Smoking: Have you smoked at least 100 cigarettes in your entire life?
-AlcoholDrinking: Heavy drinkers (adult men having more than 14 drinks per week and adult women having more than 7 drinks per week
-Stroke: (Ever told) (you had) a stroke?
-PhysicalHealth: Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good? (0-30 days).
-MentalHealth: Thinking about your mental health, for how many days during the past 30 days was your mental health not good? (0-30 days).
-DiffWalking: Do you have serious difficulty walking or climbing stairs?
-Sex: Are you male or female?
-AgeCategory: Fourteen-level age category. (then calculated the mean)
-Race: Imputed race/ethnicity value.
-Diabetic: (Ever told) (you had) diabetes?
-PhysicalActivity: Adults who reported doing physical activity or exercise during the past 30 days other than their regular job.
-GenHealth: Would you say that in general your health is...
-SleepTime: On average, how many hours of sleep do you get in a 24-hour period?
-Asthma: (Ever told) (you had) asthma?
-KidneyDisease: Not including kidney stones, bladder infection or incontinence, were you ever told you had kidney disease?
-SkinCancer: (Ever told) (you had) skin cancer?
+  - HeartDisease: Respondents that have ever reported having coronary heart disease (CHD) or myocardial infarction (MI).
+  - BMI: Body Mass Index (BMI).
+  - Smoking: Have you smoked at least 100 cigarettes in your entire life?
+  - AlcoholDrinking: Heavy drinkers (adult men having more than 14 drinks per week and adult women having more than 7 drinks per week
+  - Stroke: (Ever told) (you had) a stroke?
+  - PhysicalHealth: Now thinking about your physical health, which includes physical illness and injury, for how many days during the past 30 days was your physical health not good? (0-30 days).
+  - MentalHealth: Thinking about your mental health, for how many days during the past 30 days was your mental health not good? (0-30 days).
+  - DiffWalking: Do you have serious difficulty walking or climbing stairs?
+  - Sex: Are you male or female?
+  - AgeCategory: Fourteen-level age category. (then calculated the mean)
+  - Race: Imputed race/ethnicity value.
+  - Diabetic: (Ever told) (you had) diabetes?
+  - PhysicalActivity: Adults who reported doing physical activity or exercise during the past 30 days other than their regular job.
+  - GenHealth: Would you say that in general your health is...
+  - SleepTime: On average, how many hours of sleep do you get in a 24-hour period?
+  - Asthma: (Ever told) (you had) asthma?
+  - KidneyDisease: Not including kidney stones, bladder infection or incontinence, were you ever told you had kidney disease?
+  - SkinCancer: (Ever told) (you had) skin cancer?
 
 * **Source of training data**: GWU Blackboard, email `jphall@gwu.edu` for more information
 * **How training data was divided into training and validation data**: 50% training, 25% validation, 25% test
@@ -46,7 +46,7 @@ SkinCancer: (Ever told) (you had) skin cancer?
   * Correlation and Covariance
 ![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/correlation_features.JPG)
 
-![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/coovariance_features.JPG)
+![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/covariance_features.JPG)
 
     Result in the correlation being the same between not scaled and scaled data, but there are quite big differences in covariance. The PhysicalHealth decreased from 0.37 to 0.078 which is a huge decrease, Diabetic and Diffwalking are rising from 5,6 to 3,4. 
     From the above correlation and covariance information, we can conclude features that most relate to heart disease are:AgeCategory, Diffwalking, PhysicalHeadlth, and Diabetic. Also, looking back to the binary variable analysis part, we found that Stroke, PhysicalActivity, Diffwalking, Skincancer, KidneyDisease, Diabetic, AgeCategory affect more people with heart disease than people who don’t have it. However, while Stroke,Diffwalking, KidneyDisease,Diabetic, AgeCategory in the top 6 correlations with heart disease, the rest two have every low correlation and PhysicalActivity has a negative correlation and covariance with heart disease after normalization. 

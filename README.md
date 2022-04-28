@@ -37,16 +37,22 @@
 
 * **Feature Importance**:
   * Correlation and Covariance
+ 
 ![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/correlation_features.JPG)
 
+
 ![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/covariance_features.JPG)
+
 
     Result in the correlation being the same between not scaled and scaled data, but there are quite big differences in covariance. The PhysicalHealth decreased from 0.37 to 0.078 which is a huge decrease, Diabetic and Diffwalking are rising from 5,6 to 3,4. 
     From the above correlation and covariance information, we can conclude features that most relate to heart disease are:AgeCategory, Diffwalking, PhysicalHeadlth, and Diabetic. Also, looking back to the binary variable analysis part, we found that Stroke, PhysicalActivity, Diffwalking, Skincancer, KidneyDisease, Diabetic, AgeCategory affect more people with heart disease than people who don’t have it. However, while Stroke,Diffwalking, KidneyDisease,Diabetic, AgeCategory in the top 6 correlations with heart disease, the rest two have every low correlation and PhysicalActivity has a negative correlation and covariance with heart disease after normalization. 
 	   In conclusion, we have 6 important features: AgeCategory, Diffwalking, PhysicalHeadlth, Stroke, KidneyDisease and Diabetic.  
     
 * **Age analysis**
+
+
 ![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/age_analysis.JPG)
+
 
     The result of covariance and correlation analysis in AgeCategory seems to have the opposite results from the AgeCategory histogram. Suppose the 70~74 and 80 or older have the most affection for heart disease in the age category histogram, but these two have very low correlation and covariance. Also, people who are 18~24, 30~34, and 45~49 suppose to have a small effect on heart disease, especially people who are 30~34, but it has the highest correlation and covariance. Therefore, 30~34, 18~24, and 45~49 are important features in Agecategory.
 

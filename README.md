@@ -42,6 +42,23 @@ SkinCancer: (Ever told) (you had) skin cancer?
 
 ### EDA
 
+* **Feature Importance**:
+  * Correlation and Covariance
+![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/correlation_features.JPG)
+
+![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/coovariance_features.JPG)
+
+    Result in the correlation being the same between not scaled and scaled data, but there are quite big differences in covariance. The PhysicalHealth decreased from 0.37 to 0.078 which is a huge decrease, Diabetic and Diffwalking are rising from 5,6 to 3,4. 
+    From the above correlation and covariance information, we can conclude features that most relate to heart disease are:AgeCategory, Diffwalking, PhysicalHeadlth, and Diabetic. Also, looking back to the binary variable analysis part, we found that Stroke, PhysicalActivity, Diffwalking, Skincancer, KidneyDisease, Diabetic, AgeCategory affect more people with heart disease than people who don’t have it. However, while Stroke,Diffwalking, KidneyDisease,Diabetic, AgeCategory in the top 6 correlations with heart disease, the rest two have every low correlation and PhysicalActivity has a negative correlation and covariance with heart disease after normalization. 
+	   In conclusion, we have 6 important features: AgeCategory, Diffwalking, PhysicalHeadlth, Stroke, KidneyDisease and Diabetic.  
+    
+* **Age analysis**
+![download](https://github.com/NickBenevento/DATS_6103_Project/blob/main/age_analysis.JPG)
+
+    The result of covariance and correlation analysis in AgeCategory seems to have the opposite results from the AgeCategory histogram. Suppose the 70~74 and 80 or older have the most affection for heart disease in the age category histogram, but these two have very low correlation and covariance. Also, people who are 18~24, 30~34, and 45~49 suppose to have a small effect on heart disease, especially people who are 30~34, but it has the highest correlation and covariance. Therefore, 30~34, 18~24, and 45~49 are important features in Agecategory.
+
+
+
 
 ### Model analysis:
 * **Logit Model with All Observations, No Test/Train Split**:
@@ -79,4 +96,7 @@ SkinCancer: (Ever told) (you had) skin cancer?
 
 
 ### Conlcusion:
-While both the logistic regression and the SVM models performed similarly, we concluded that the logistic regression model was likely more useful in real world applications. It gives a predicted probability of a respondent having heart disease, which allows for more flexibility when determining if a patient should get a check up with their physician.
+   Looking back at our SMART questions, we aimed to determine if the key risk factors listed by the CDC were good predictors for heart disease and also explore if there are other, less prevalent factors that were also useful predictors. Given that our dataset only included information on smoking and not blood pressure levels or high cholesterol, we knew that we would not be able to answer this entirely. What we can look at however, are factors related to high blood pressure and high cholesterol that we do have data on in terms of their predictive power for risk of heart disease.
+	  While smoking did not turn out to be as important as we first hypothesized, it was still statistically significant in our models. Factors such as if a respondent has had a stroke, if they are male, and if they had previous health problems like kidney disease or difficulty walking turned out to be the most important features in our models. Overall, this makes sense; less healthy individuals or those that have pre-existing health and heart conditions are more likely to be at risk for heart disease.
+	  While both the logistic regression and the SVM models performed similarly, we concluded that the logistic regression model was likely more useful in real world applications. It gives a predicted probability of a respondent having heart disease, which allows for more flexibility when determining if a patient should get a check up with their physician.
+

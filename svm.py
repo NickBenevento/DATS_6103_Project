@@ -83,6 +83,15 @@ print(metrics.mean_squared_error(y_true, y_pred))
 # F1: 75.34%, accuracy: 74.74%: decent
 
 # %%
+# Print coefficients
+# print(svm.coef_)
+features = ['Smoking', 'AlcoholDrinking', 'Stroke', 'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime', 'Asthma', 'KidneyDisease', 'SkinCancer', 'AgeCont', 'BMI']
+coefficients = svm.coef_
+print('Feature coefficients: ')
+for i in range(len(features)):
+    print(f'{features[i]}: {coefficients[0][i]}')
+
+# %%
 # Use some test data:
 data = [[0, 0, 0, 0, 0, 0, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20],
         [1, 1, 1, 0, 0, 1, 1, 5, 0, 1, 0, 8, 0, 0, 0, 40, 20]] 
